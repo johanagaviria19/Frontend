@@ -41,14 +41,14 @@ export function SearchResults({ results, onAnalyzeProduct }: SearchResultsProps)
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {results.map((result, index) => (
-          <Card key={index} className="p-6 transition-all hover:shadow-lg">
+          <Card key={index} className="p-6 transition-all hover:shadow-lg neon-panel gradient-border">
             <div className="space-y-4">
               <div className="flex items-start justify-between gap-2">
                 <Badge variant="outline" className="capitalize">
                   {result.platform}
                 </Badge>
                 {result.price === lowestPrice && (
-                  <Badge className="bg-green-500">
+                  <Badge className="bg-green-500 neon-icon">
                     <TrendingUp className="mr-1 h-3 w-3" />
                     Best Price
                   </Badge>
@@ -57,29 +57,29 @@ export function SearchResults({ results, onAnalyzeProduct }: SearchResultsProps)
 
               <h3 className="line-clamp-2 font-semibold leading-tight">{result.name}</h3>
 
-              <div className="space-y-2">
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-bold">${result.price.toFixed(2)}</span>
-                </div>
-
-                {result.rating && (
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <div className="flex items-center gap-1">
-                      <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                      <span className="font-medium">{result.rating.toFixed(1)}</span>
-                    </div>
-                    {result.reviews_count && <span>({result.reviews_count.toLocaleString()} reviews)</span>}
+                <div className="space-y-2">
+                  <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-bold neon-number">${result.price.toFixed(2)}</span>
                   </div>
-                )}
+
+                  {result.rating && (
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <div className="flex items-center gap-1">
+                        <Star className="h-4 w-4 fill-yellow-400 text-yellow-400 neon-icon" />
+                        <span className="font-medium">{result.rating.toFixed(1)}</span>
+                      </div>
+                      {result.reviews_count && <span>({result.reviews_count.toLocaleString()} reviews)</span>}
+                    </div>
+                  )}
               </div>
 
               <div className="flex gap-2">
-                <Button variant="default" size="sm" className="flex-1" onClick={() => onAnalyzeProduct(result.url)}>
+                <Button variant="default" size="sm" className="flex-1 neon-panel" onClick={() => onAnalyzeProduct(result.url)}>
                   Analyze Reviews
                 </Button>
                 <Button variant="outline" size="sm" asChild>
                   <a href={result.url} target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="h-4 w-4" />
+                    <ExternalLink className="h-4 w-4 neon-icon" />
                   </a>
                 </Button>
               </div>
