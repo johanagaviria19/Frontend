@@ -102,9 +102,9 @@ export function RecentAnalyses({ onSelectAnalysis }: RecentAnalysesProps) {
           size="sm"
           onClick={handleClearAll}
           disabled={clearingAll}
-          className="gap-2 bg-transparent"
+          className="gap-2 bg-transparent neon-panel"
         >
-          <Trash2 className="h-4 w-4" />
+          <Trash2 className="h-4 w-4 neon-icon" />
           Limpiar Historial
         </Button>
       </div>
@@ -112,7 +112,7 @@ export function RecentAnalyses({ onSelectAnalysis }: RecentAnalysesProps) {
         {analyses.map((analysis) => (
           <Card
             key={analysis.id}
-            className="group relative cursor-pointer p-4 transition-colors hover:bg-muted/50"
+            className="group relative cursor-pointer p-4 transition-all hover:shadow-lg neon-panel gradient-border"
             onClick={() => handleSelect(analysis)}
             aria-busy={loadingSelectionId === analysis.id}
             aria-label={`Abrir análisis de ${analysis.product_name}`}
@@ -124,7 +124,7 @@ export function RecentAnalyses({ onSelectAnalysis }: RecentAnalysesProps) {
               onClick={(e) => handleDelete(e, analysis.id)}
               disabled={deletingId === analysis.id}
             >
-              <X className="h-4 w-4" />
+              <X className="h-4 w-4 neon-icon" />
             </Button>
             <div className="mb-2 flex items-start gap-3">
               {analysis.product_image_url && (
@@ -138,7 +138,7 @@ export function RecentAnalyses({ onSelectAnalysis }: RecentAnalysesProps) {
                 <h4 className="line-clamp-2 pr-8 text-sm font-semibold text-foreground">{analysis.product_name}</h4>
                 <div className="mt-1 flex flex-wrap items-center gap-2">
                   {typeof analysis.product_price === 'number' && (
-                    <p className="text-xs text-muted-foreground">Precio: ${analysis.product_price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                    <p className="text-xs text-muted-foreground">Precio: <span className="neon-number">${analysis.product_price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></p>
                   )}
                   {typeof analysis.product_rating === 'number' && (
                     <p className="text-xs text-muted-foreground">Rating: {analysis.product_rating.toFixed(1)} / 5.0</p>
@@ -149,16 +149,16 @@ export function RecentAnalyses({ onSelectAnalysis }: RecentAnalysesProps) {
 
             <div className="mb-3 flex items-start justify-between">
               <div className="flex items-center gap-2">
-                {getSentimentIcon(analysis.sentiment_label)}
+                <span className="neon-icon">{getSentimentIcon(analysis.sentiment_label)}</span>
                 <span className="text-sm font-medium capitalize text-foreground">{analysis.sentiment_label}</span>
               </div>
-              <span className="text-lg font-bold text-foreground">{(analysis.avg_sentiment * 5).toFixed(1)}</span>
+              <span className="text-lg font-bold text-foreground neon-number">{(analysis.avg_sentiment * 5).toFixed(1)}</span>
             </div>
 
             <p className="mb-2 text-sm text-muted-foreground">{analysis.total_reviews} reviews analyzed</p>
 
             <div className="flex items-center gap-1 text-xs text-muted-foreground">
-              <Clock className="h-3 w-3" />
+              <Clock className="h-3 w-3 neon-icon" />
               {new Date(analysis.analyzed_at).toLocaleDateString()}
             </div>
           </Card>

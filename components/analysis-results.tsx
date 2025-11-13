@@ -69,7 +69,7 @@ export function AnalysisResults({ data }: AnalysisResultsProps) {
             <p className="mb-2 text-sm font-medium text-muted-foreground">Overall Sentiment</p>
             <div className="flex items-center gap-3">
               {getSentimentIcon(data.sentiment_label)}
-              <span className={`text-3xl font-bold capitalize ${getSentimentColor(data.sentiment_label)}`}>
+              <span className={`text-3xl font-bold capitalize ${getSentimentColor(data.sentiment_label)} neon-number`}>
                 {data.sentiment_label}
               </span>
             </div>
@@ -78,7 +78,7 @@ export function AnalysisResults({ data }: AnalysisResultsProps) {
             <p className="mb-2 text-sm font-medium text-muted-foreground">Sentiment Score</p>
             <div className="flex items-center gap-2">
               <Star className="h-6 w-6 fill-primary text-primary" />
-              <span className="text-3xl font-bold text-foreground">{(data.avg_sentiment * 5).toFixed(1)}</span>
+              <span className="text-3xl font-bold text-foreground neon-number">{(data.avg_sentiment * 5).toFixed(1)}</span>
               <span className="text-muted-foreground">/5.0</span>
             </div>
           </div>
@@ -89,7 +89,7 @@ export function AnalysisResults({ data }: AnalysisResultsProps) {
       <div className="grid gap-4 md:grid-cols-3">
         <Card className="p-6">
           <p className="mb-2 text-sm font-medium text-muted-foreground">Positive Reviews</p>
-          <p className="text-3xl font-bold text-green-500">{data.positive_count}</p>
+          <p className="text-3xl font-bold text-green-500 neon-number">{data.positive_count}</p>
           <p className="text-sm text-muted-foreground">
             {data.total_reviews ? ((data.positive_count / data.total_reviews) * 100).toFixed(1) : '0.0'}%
           </p>
@@ -97,7 +97,7 @@ export function AnalysisResults({ data }: AnalysisResultsProps) {
 
         <Card className="p-6">
           <p className="mb-2 text-sm font-medium text-muted-foreground">Neutral Reviews</p>
-          <p className="text-3xl font-bold text-yellow-500">{data.neutral_count}</p>
+          <p className="text-3xl font-bold text-yellow-500 neon-number">{data.neutral_count}</p>
           <p className="text-sm text-muted-foreground">
             {data.total_reviews ? ((data.neutral_count / data.total_reviews) * 100).toFixed(1) : '0.0'}%
           </p>
@@ -105,7 +105,7 @@ export function AnalysisResults({ data }: AnalysisResultsProps) {
 
         <Card className="p-6">
           <p className="mb-2 text-sm font-medium text-muted-foreground">Negative Reviews</p>
-          <p className="text-3xl font-bold text-red-500">{data.negative_count}</p>
+          <p className="text-3xl font-bold text-red-500 neon-number">{data.negative_count}</p>
           <p className="text-sm text-muted-foreground">
             {data.total_reviews ? ((data.negative_count / data.total_reviews) * 100).toFixed(1) : '0.0'}%
           </p>

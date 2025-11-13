@@ -19,9 +19,9 @@ export function PriceComparison({ prices }: PriceComparisonProps) {
       <div className="mb-4 flex items-center justify-between">
         <h3 className="text-lg font-semibold text-foreground">Price Comparison</h3>
         {savings > 0 && (
-          <Badge variant="default" className="gap-1">
+          <Badge variant="default" className="gap-1 neon-icon">
             <TrendingDown className="h-3 w-3" />
-            Save ${savings.toFixed(2)}
+            <span className="neon-number">Save ${savings.toFixed(2)}</span>
           </Badge>
         )}
       </div>
@@ -41,7 +41,7 @@ export function PriceComparison({ prices }: PriceComparisonProps) {
                 </Badge>
               )}
             </div>
-            <span className="text-xl font-bold text-foreground">${price.toFixed(2)}</span>
+            <span className="text-xl font-bold text-foreground neon-number">${price.toFixed(2)}</span>
           </div>
         ))}
       </div>

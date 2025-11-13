@@ -26,8 +26,8 @@ export function BackendStatus() {
 
   if (status === "checking") {
     return (
-      <Alert className="border-blue-500/50 bg-blue-500/10">
-        <Loader2 className="h-4 w-4 animate-spin" />
+      <Alert className="border-blue-500/50 bg-blue-500/10 neon-panel gradient-border">
+        <Loader2 className="h-4 w-4 animate-spin neon-icon" />
         <AlertTitle>Checking backend connection...</AlertTitle>
       </Alert>
     )
@@ -35,8 +35,8 @@ export function BackendStatus() {
 
   if (status === "offline") {
     return (
-      <Alert variant="destructive">
-        <AlertCircle className="h-4 w-4" />
+      <Alert variant="destructive" className="neon-panel gradient-border">
+        <AlertCircle className="h-4 w-4 neon-icon" />
         <AlertTitle>Backend server is offline</AlertTitle>
         <AlertDescription>
           Make sure the FastAPI server is running. Open a terminal in the <code>backend</code> folder and run:
@@ -47,8 +47,8 @@ export function BackendStatus() {
   }
 
   return (
-    <Alert className="border-green-500/50 bg-green-500/10">
-      <CheckCircle2 className="h-4 w-4 text-green-500" />
+    <Alert className="border-green-500/50 bg-green-500/10 neon-panel gradient-border">
+      <CheckCircle2 className="h-4 w-4 text-green-500 neon-icon" />
       <AlertTitle className="text-green-500">Backend connected</AlertTitle>
       <AlertDescription>API server is running and ready</AlertDescription>
     </Alert>
