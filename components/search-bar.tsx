@@ -68,7 +68,7 @@ export function SearchBar({ onAnalysisComplete, onAnalysisStart, onSearchResults
           <LinkIcon className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
           <Input
             type="text"
-            placeholder="Enter product name or paste URL (Amazon, eBay, MercadoLibre...)"
+            placeholder="Pega la URL de Mercado Libre"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             className="h-12 pl-10 text-base"
