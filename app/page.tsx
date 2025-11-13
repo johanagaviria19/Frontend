@@ -14,6 +14,7 @@ export default function Home() {
   const [analysisData, setAnalysisData] = useState<AnalysisResult | null>(null)
   const [isAnalyzing, setIsAnalyzing] = useState(false)
   const [searchResults, setSearchResults] = useState<SearchResult[]>([])
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL
 
   const handleAnalysisComplete = (data: AnalysisResult) => {
     setAnalysisData(data)
@@ -85,9 +86,11 @@ export default function Home() {
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <BackendStatus />
-        </div>
+        {apiUrl && (
+          <div className="mb-8">
+            <BackendStatus />
+          </div>
+        )}
 
         {/* Hero Section */}
         <div className="mb-12 text-center">
