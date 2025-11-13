@@ -1,4 +1,4 @@
-# SmartMarket AI
+# DBVision
 
 Aplicación full-stack para análisis de productos de e-commerce con IA, análisis de sentimientos, web scraping y comparación de precios.
 
