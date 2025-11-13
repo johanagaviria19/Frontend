@@ -66,7 +66,7 @@ export default function RegisterPage() {
       <Card className="w-full max-w-md p-8 space-y-6">
         <div className="space-y-2 text-center">
           <h1 className="text-3xl font-bold text-balance">Create Account</h1>
-          <p className="text-muted-foreground text-pretty">Join SmartMarket AI to start analyzing products</p>
+          <p className="text-muted-foreground text-pretty">Join DBVision to start analyzing products</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">

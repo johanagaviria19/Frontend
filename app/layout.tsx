@@ -10,7 +10,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "SmartMarket AI - Intelligent Product Analysis",
+  title: "DBVision - Intelligent Product Analysis",
   description: "Analyze products with AI-powered sentiment analysis, price comparisons, and customer insights",
     generator: 'v0.app'
 }

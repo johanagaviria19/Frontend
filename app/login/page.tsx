@@ -39,7 +39,7 @@ export default function LoginPage() {
       <Card className="w-full max-w-md p-8 space-y-6">
         <div className="space-y-2 text-center">
           <h1 className="text-3xl font-bold text-balance">Welcome Back</h1>
-          <p className="text-muted-foreground text-pretty">Sign in to your SmartMarket AI account</p>
+          <p className="text-muted-foreground text-pretty">Sign in to your DBVision account</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">

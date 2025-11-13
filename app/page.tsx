@@ -151,7 +151,7 @@ export default function Home() {
                 <Sparkles className="h-6 w-6" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-foreground">SmartMarket AI</h1>
+                <h1 className="text-2xl font-bold text-foreground">DBVision</h1>
                 <p className="text-sm text-muted-foreground">Intelligent Product Analysis</p>
               </div>
             </div>
@@ -223,7 +223,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="mt-16 border-t border-border bg-card/50 py-8 gradient-border neon-panel">
         <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
-          <p>SmartMarket AI - Powered by FastAPI, React, and Transformers</p>
+          <p>DBVision - Powered by FastAPI, React, and Transformers</p>
         </div>
       </footer>
         </div>
