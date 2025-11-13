@@ -7,8 +7,20 @@ import { RecentAnalyses } from "@/components/recent-analyses"
 import { SearchResults } from "@/components/search-results"
 import { BackendStatus } from "@/components/backend-status"
 import { UserMenu } from "@/components/user-menu"
-import { Sparkles } from "lucide-react"
+import { Sparkles, Home as HomeIcon, Box, Brain, Database, Settings as SettingsIcon, Users, BarChart3 } from "lucide-react"
 import type { SearchResult, AnalysisResult } from "@/lib/api"
+import {
+  SidebarProvider,
+  Sidebar,
+  SidebarHeader,
+  SidebarContent,
+  SidebarFooter,
+  SidebarInset,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+  SidebarSeparator,
+} from "@/components/ui/sidebar"
 
 export default function Home() {
   const [analysisData, setAnalysisData] = useState<AnalysisResult | null>(null)
@@ -65,7 +77,71 @@ export default function Home() {
   }, [analysisData, isAnalyzing])
 
   return (
-    <div className="min-h-screen bg-background">
+    <SidebarProvider>
+      <Sidebar side="left" variant="floating" collapsible="icon">
+        <SidebarHeader>
+          <div className="px-4 py-4">
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/20 neon-icon">
+                <BarChart3 className="h-6 w-6 text-primary" />
+              </div>
+              <div>
+                <div className="text-xl font-bold text-primary">Analytics</div>
+              </div>
+            </div>
+          </div>
+        </SidebarHeader>
+        <SidebarContent>
+          <div className="px-3">
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton isActive className="neon-panel">
+                  <HomeIcon className="h-4 w-4" />
+                  Dashboard
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton>
+                  <Box className="h-4 w-4" />
+                  Products
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton>
+                  <Brain className="h-4 w-4" />
+                  Analysis
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton>
+                  <Database className="h-4 w-4" />
+                  DB Diagram
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton>
+                  <SettingsIcon className="h-4 w-4" />
+                  Settings
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+            <SidebarSeparator className="my-4" />
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton>
+                  <Users className="h-4 w-4" />
+                  Admin Panel
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </div>
+        </SidebarContent>
+        <SidebarFooter>
+          <div className="px-4 py-4 text-xs text-muted-foreground">Analytics Platform v1.0.0</div>
+        </SidebarFooter>
+      </Sidebar>
+      <SidebarInset>
+        <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-border header-gradient backdrop-blur-sm">
         <div className="container mx-auto px-4 py-4">
@@ -144,12 +220,14 @@ export default function Home() {
         )}
       </main>
 
-  {/* Footer */}
-  <footer className="mt-16 border-t border-border bg-card/50 py-8 gradient-border neon-panel">
-    <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
-      <p>SmartMarket AI - Powered by FastAPI, React, and Transformers</p>
-    </div>
-  </footer>
-    </div>
+      {/* Footer */}
+      <footer className="mt-16 border-t border-border bg-card/50 py-8 gradient-border neon-panel">
+        <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
+          <p>SmartMarket AI - Powered by FastAPI, React, and Transformers</p>
+        </div>
+      </footer>
+        </div>
+      </SidebarInset>
+    </SidebarProvider>
   )
 }
