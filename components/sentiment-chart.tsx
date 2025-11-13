@@ -2,7 +2,7 @@
 
 import { Card } from "@/components/ui/card"
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip, LabelList } from "recharts"
-import type { ReactNode } from "react"
+ 
 
 interface SentimentChartProps {
   data: any
@@ -15,9 +15,11 @@ export function SentimentChart({ data }: SentimentChartProps) {
     { name: "Negative", value: Number(data?.negative_count) || 0, color: "#ff4d6d" },
   ]
   const total = chartData.reduce((acc, d) => acc + (Number(d.value) || 0), 0)
-  const formatLabel: (value: number, entry: any, index: number) => ReactNode = (value, entry) => {
-    const p = total > 0 ? (Number(value) / total) * 100 : 0
-    const name = entry && typeof entry === 'object' && 'name' in entry ? (entry as any).name : ''
+  const labelValueAccessor = (entry: any, _index: number): string => {
+    const value = entry && typeof entry === 'object' && 'value' in entry ? Number((entry as any).value) : 0
+    const payload = entry && typeof entry === 'object' && 'payload' in entry ? (entry as any).payload : undefined
+    const name = payload && typeof payload === 'object' && 'name' in payload ? (payload as any).name : ''
+    const p = total > 0 ? (value / total) * 100 : 0
     return `${name} ${p.toFixed(0)}%`
   }
 
@@ -38,7 +40,7 @@ export function SentimentChart({ data }: SentimentChartProps) {
             {chartData.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={entry.color} />
             ))}
-            <LabelList position="outside" dataKey="value" formatter={formatLabel} />
+            <LabelList position="outside" dataKey="value" valueAccessor={labelValueAccessor} />
           </Pie>
           <Tooltip wrapperStyle={{ background: 'rgba(20,22,48,0.9)', borderRadius: 8, border: '1px solid rgba(120,150,255,0.3)', color: '#fff' }} />
           <Legend />
