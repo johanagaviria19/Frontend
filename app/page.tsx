@@ -144,12 +144,12 @@ export default function Home() {
         )}
       </main>
 
-      {/* Footer */}
-      <footer className="mt-16 border-t border-border bg-card/50 py-8">
-        <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
-          <p>SmartMarket AI - Powered by FastAPI, React, and Transformers</p>
-        </div>
-      </footer>
+  {/* Footer */}
+  <footer className="mt-16 border-t border-border bg-card/50 py-8 gradient-border neon-panel">
+    <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
+      <p>SmartMarket AI - Powered by FastAPI, React, and Transformers</p>
+    </div>
+  </footer>
     </div>
   )
 }
