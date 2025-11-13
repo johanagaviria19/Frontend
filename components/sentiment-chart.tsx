@@ -32,9 +32,10 @@ export function SentimentChart({ data }: SentimentChartProps) {
             {chartData.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={entry.color} />
             ))}
-            <LabelList position="outside" dataKey="value" formatter={(value: number, entry: any) => {
+            <LabelList position="outside" dataKey="value" formatter={(value: number, entry: any, index: number) => {
               const p = total > 0 ? (Number(value) / total) * 100 : 0
-              return `${entry?.name ?? ''} ${p.toFixed(0)}%`
+              const name = entry && typeof entry === 'object' && 'name' in entry ? (entry as any).name : ''
+              return `${name} ${p.toFixed(0)}%`
             }} />
           </Pie>
           <Tooltip wrapperStyle={{ background: 'rgba(20,22,48,0.9)', borderRadius: 8, border: '1px solid rgba(120,150,255,0.3)', color: '#fff' }} />
