@@ -51,6 +51,34 @@ export interface AnalysisResponse {
   platform: string
 }
 
+// Resultado del análisis para la página de práctica (Trustpilot/RottenTomatoes/Goodreads)
+export interface PracticeSentimentSummary {
+  stars: number
+  sentiment_label: string
+  avg_sentiment: number
+  total_reviews: number
+  positive_count: number
+  negative_count: number
+  neutral_count: number
+  keywords: string[]
+  opinion_summary: string
+}
+
+// Respuesta al subir archivo de reseñas (.json/.csv/.xlsx)
+export interface UploadAnalysisResponse {
+  product_id: number
+  product_name: string
+  stars: number
+  sentiment_label: string
+  avg_sentiment: number
+  total_reviews: number
+  positive_count: number
+  neutral_count: number
+  negative_count: number
+  keywords: string[]
+  opinion_summary: string
+}
+
 class ApiService {
   private baseUrl: string
 
@@ -162,6 +190,32 @@ class ApiService {
       }
       throw error
     }
+  }
+
+  // Análisis de práctica: ejecuta scraping y devuelve resumen de sentimiento
+  async analyzePractice(source: string, query: string): Promise<PracticeSentimentSummary> {
+    try {
+      return await this.post<PracticeSentimentSummary>("/api/scrape/analyze", { source, query })
+    } catch (error) {
+      if (error instanceof TypeError && error.message.includes("fetch")) {
+        throw new Error("Cannot connect to backend. Make sure the server is running on http://localhost:8000")
+      }
+      throw error
+    }
+  }
+
+  // Subida de dataset de reseñas para análisis
+  async uploadReviewsFile(file: File): Promise<UploadAnalysisResponse> {
+    const form = new FormData()
+    form.append("file", file)
+
+    const response = await fetch(`${this.baseUrl}/api/products/upload`, {
+      method: "POST",
+      // No establecer Content-Type manualmente para permitir multipart/form-data
+      headers: this.getAuthHeaders(false),
+      body: form,
+    })
+    return this.handleResponse<UploadAnalysisResponse>(response)
   }
 
   async getAnalysis(productId: number): Promise<AnalysisResult> {
