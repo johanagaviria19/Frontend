@@ -20,12 +20,16 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarSeparator,
+  SidebarMenuSub,
+  SidebarMenuSubItem,
+  SidebarMenuSubButton,
 } from "@/components/ui/sidebar"
 
 export default function Home() {
   const [analysisData, setAnalysisData] = useState<AnalysisResult | null>(null)
   const [isAnalyzing, setIsAnalyzing] = useState(false)
   const [searchResults, setSearchResults] = useState<SearchResult[]>([])
+  const [productsOpen, setProductsOpen] = useState(false)
   const apiUrl = process.env.NEXT_PUBLIC_API_URL
 
   const handleAnalysisComplete = (data: AnalysisResult) => {
@@ -97,14 +101,27 @@ export default function Home() {
               <SidebarMenuItem>
                 <SidebarMenuButton isActive className="neon-panel">
                   <HomeIcon className="h-4 w-4" />
-                  Dashboard
+                  Home
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton>
+                <SidebarMenuButton onClick={() => setProductsOpen((v) => !v)} aria-expanded={productsOpen}>
                   <Box className="h-4 w-4" />
                   Products
                 </SidebarMenuButton>
+                {productsOpen && (
+                  <SidebarMenuSub>
+                    <SidebarMenuSubItem>
+                      <SidebarMenuSubButton href="#sentiment">Análisis de Sentimientos</SidebarMenuSubButton>
+                    </SidebarMenuSubItem>
+                    <SidebarMenuSubItem>
+                      <SidebarMenuSubButton href="#db">Análisis de Bases de Datos</SidebarMenuSubButton>
+                    </SidebarMenuSubItem>
+                    <SidebarMenuSubItem>
+                      <SidebarMenuSubButton href="#scrape">Scrapeo Web</SidebarMenuSubButton>
+                    </SidebarMenuSubItem>
+                  </SidebarMenuSub>
+                )}
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton>
