@@ -6,6 +6,7 @@ import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Search, LinkIcon } from "lucide-react"
+import { useI18n } from "@/components/i18n-provider"
 import { useAnalysis } from "@/lib/hooks/use-analysis"
 
 interface SearchBarProps {
@@ -15,6 +16,7 @@ interface SearchBarProps {
 }
 
 export function SearchBar({ onAnalysisComplete, onAnalysisStart, onSearchResults }: SearchBarProps) {
+  const { t } = useI18n()
   const [input, setInput] = useState("")
   const { startAnalysis, isAnalyzing, analysisData, error } = useAnalysis()
 
@@ -68,7 +70,7 @@ export function SearchBar({ onAnalysisComplete, onAnalysisStart, onSearchResults
           <LinkIcon className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
           <Input
             type="text"
-            placeholder="Pega la URL de Mercado Libre"
+            placeholder={t("search.placeholder")}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             className="h-12 pl-10 text-base"
@@ -77,7 +79,7 @@ export function SearchBar({ onAnalysisComplete, onAnalysisStart, onSearchResults
         </div>
         <Button type="submit" size="lg" disabled={isAnalyzing || !input.trim()} className="h-12 px-8">
           <Search className="mr-2 h-5 w-5" />
-          {isUrl(input) ? "Analyze" : "Search"}
+          {isUrl(input) ? t("search.analyze") : t("search.search")}
         </Button>
       </div>
       {error && <p className="mt-2 text-sm text-destructive">{error}</p>}

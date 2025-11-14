@@ -8,12 +8,14 @@ import { Clock, TrendingUp, TrendingDown, Minus, Trash2, X } from "lucide-react"
 import { useRecentAnalyses } from "@/lib/hooks/use-recent-analyses"
 import { api } from "@/lib/api"
 import { useState } from "react"
+import { useI18n } from "@/components/i18n-provider"
 
 interface RecentAnalysesProps {
   onSelectAnalysis: (data: any) => void
 }
 
 export function RecentAnalyses({ onSelectAnalysis }: RecentAnalysesProps) {
+  const { t } = useI18n()
   const { analyses, isLoading, error, refresh } = useRecentAnalyses(6)
   const [deletingId, setDeletingId] = useState<number | null>(null)
   const [clearingAll, setClearingAll] = useState(false)
@@ -32,28 +34,28 @@ export function RecentAnalyses({ onSelectAnalysis }: RecentAnalysesProps) {
 
   const handleDelete = async (e: React.MouseEvent, analysisId: number) => {
     e.stopPropagation()
-    if (!confirm("¿Estás seguro de que quieres eliminar este análisis?")) return
+    if (!confirm(t("recent.confirmDelete"))) return
 
     try {
       setDeletingId(analysisId)
       await api.deleteAnalysis(analysisId)
       refresh()
     } catch (err) {
-      alert("Error al eliminar el análisis")
+      alert(t("recent.errorDelete"))
     } finally {
       setDeletingId(null)
     }
   }
 
   const handleClearAll = async () => {
-    if (!confirm("¿Estás seguro de que quieres eliminar todo el historial?")) return
+    if (!confirm(t("recent.confirmClear"))) return
 
     try {
       setClearingAll(true)
       await api.clearAllAnalyses()
       refresh()
     } catch (err) {
-      alert("Error al limpiar el historial")
+      alert(t("recent.errorClear"))
     } finally {
       setClearingAll(false)
     }
@@ -62,7 +64,7 @@ export function RecentAnalyses({ onSelectAnalysis }: RecentAnalysesProps) {
   if (isLoading) {
     return (
       <div className="text-center">
-        <p className="text-muted-foreground">Loading recent analyses...</p>
+        <p className="text-muted-foreground">{t("recent.loading")}</p>
       </div>
     )
   }
@@ -96,7 +98,7 @@ export function RecentAnalyses({ onSelectAnalysis }: RecentAnalysesProps) {
   return (
     <div>
       <div className="mb-4 flex items-center justify-between">
-        <h3 className="text-xl font-semibold text-foreground">Análisis Recientes</h3>
+        <h3 className="text-xl font-semibold text-foreground">{t("recent.title")}</h3>
         <Button
           variant="outline"
           size="sm"
@@ -105,7 +107,7 @@ export function RecentAnalyses({ onSelectAnalysis }: RecentAnalysesProps) {
           className="gap-2 bg-transparent neon-panel"
         >
           <Trash2 className="h-4 w-4 neon-icon" />
-          Limpiar Historial
+          {t("recent.clearHistory")}
         </Button>
       </div>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -115,7 +117,7 @@ export function RecentAnalyses({ onSelectAnalysis }: RecentAnalysesProps) {
             className="group relative cursor-pointer p-4 transition-all hover:shadow-lg neon-panel gradient-border"
             onClick={() => handleSelect(analysis)}
             aria-busy={loadingSelectionId === analysis.id}
-            aria-label={`Abrir análisis de ${analysis.product_name}`}
+            aria-label={`${t("recent.openAnalysisOf")} ${analysis.product_name}`}
           >
             <Button
               variant="ghost"
@@ -130,7 +132,7 @@ export function RecentAnalyses({ onSelectAnalysis }: RecentAnalysesProps) {
               {analysis.product_image_url && (
                 <img
                   src={analysis.product_image_url}
-                  alt={analysis.product_name || 'Product'}
+                  alt={analysis.product_name || t("products.product")}
                   className="h-12 w-12 rounded-md object-cover"
                 />
               )}
@@ -138,10 +140,10 @@ export function RecentAnalyses({ onSelectAnalysis }: RecentAnalysesProps) {
                 <h4 className="line-clamp-2 pr-8 text-sm font-semibold text-foreground">{analysis.product_name}</h4>
                 <div className="mt-1 flex flex-wrap items-center gap-2">
                   {typeof analysis.product_price === 'number' && (
-                    <p className="text-xs text-muted-foreground">Precio: <span className="neon-number">${analysis.product_price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></p>
+                    <p className="text-xs text-muted-foreground">{t("recent.price")}: <span className="neon-number">${analysis.product_price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></p>
                   )}
                   {typeof analysis.product_rating === 'number' && (
-                    <p className="text-xs text-muted-foreground">Rating: {analysis.product_rating.toFixed(1)} / 5.0</p>
+                    <p className="text-xs text-muted-foreground">{t("recent.rating")}: {analysis.product_rating.toFixed(1)} / 5 · {analysis.total_reviews} {t("analysis.reviews")}</p>
                   )}
                 </div>
               </div>
@@ -155,7 +157,6 @@ export function RecentAnalyses({ onSelectAnalysis }: RecentAnalysesProps) {
               <span className="text-lg font-bold text-foreground neon-number">{(analysis.avg_sentiment * 5).toFixed(1)}</span>
             </div>
 
-            <p className="mb-2 text-sm text-muted-foreground">{analysis.total_reviews} reviews analyzed</p>
 
             <div className="flex items-center gap-1 text-xs text-muted-foreground">
               <Clock className="h-3 w-3 neon-icon" />

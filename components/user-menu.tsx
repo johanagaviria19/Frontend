@@ -12,10 +12,12 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { User, LogOut, LogIn } from "lucide-react"
 import { useRouter } from "next/navigation"
+import { useI18n } from "@/components/i18n-provider"
 
 export function UserMenu() {
   const { user, logout, isAuthenticated, loading } = useAuth()
   const router = useRouter()
+  const { t } = useI18n()
 
   if (loading) {
     return <div className="h-9 w-9 animate-pulse rounded-full bg-muted" />
@@ -25,7 +27,7 @@ export function UserMenu() {
     return (
       <Button variant="outline" size="sm" onClick={() => router.push("/login")} className="gap-2">
         <LogIn className="h-4 w-4" />
-        Login
+        {t("auth.login")}
       </Button>
     )
   }
@@ -55,7 +57,7 @@ export function UserMenu() {
           className="cursor-pointer text-red-500 focus:text-red-500"
         >
           <LogOut className="mr-2 h-4 w-4" />
-          Logout
+          {t("auth.logout")}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

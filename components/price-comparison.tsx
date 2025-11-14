@@ -3,12 +3,14 @@
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { DollarSign, TrendingDown } from "lucide-react"
+import { useI18n } from "@/components/i18n-provider"
 
 interface PriceComparisonProps {
   prices: Record<string, number>
 }
 
 export function PriceComparison({ prices }: PriceComparisonProps) {
+  const { t } = useI18n()
   const priceEntries = Object.entries(prices).sort((a, b) => a[1] - b[1])
   const lowestPrice = priceEntries[0]?.[1]
   const highestPrice = priceEntries[priceEntries.length - 1]?.[1]
@@ -17,11 +19,11 @@ export function PriceComparison({ prices }: PriceComparisonProps) {
   return (
     <Card className="p-6">
       <div className="mb-4 flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-foreground">Price Comparison</h3>
+        <h3 className="text-lg font-semibold text-foreground">{t("priceComparison.title")}</h3>
         {savings > 0 && (
           <Badge variant="default" className="gap-1 neon-icon">
             <TrendingDown className="h-3 w-3" />
-            <span className="neon-number">Save ${savings.toFixed(2)}</span>
+            <span className="neon-number">{t("priceComparison.save")} ${savings.toFixed(2)}</span>
           </Badge>
         )}
       </div>
@@ -37,7 +39,7 @@ export function PriceComparison({ prices }: PriceComparisonProps) {
               <span className="font-medium capitalize text-foreground">{platform}</span>
               {index === 0 && (
                 <Badge variant="default" className="text-xs">
-                  Best Price
+                  {t("priceComparison.bestPrice")}
                 </Badge>
               )}
             </div>
